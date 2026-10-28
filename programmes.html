@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exchange Programmes | GSE</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172b4d;
+    }
+
+    header {
+      background: #12345a;
+      color: white;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h2 { margin: 0; }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    .hero {
+      background: #e3edfa;
+      padding: 48px 7%;
+      text-align: center;
+    }
+
+    .hero h1 { margin-top: 0; font-size: 36px; }
+
+    .hero p { line-height: 1.6; }
+
+    .search-area {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    input, select {
+      padding: 13px;
+      border: 1px solid #bbc8d8;
+      border-radius: 7px;
+      background: white;
+      min-width: 200px;
+      max-width: 100%;
+    }
+
+    main { padding: 35px 7%; }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .programmes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 15px #172b4d12;
+      border: 1px solid #e0e7f0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e3edfa;
+      color: #12345a;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .card h3 { margin-bottom: 8px; }
+
+    .card p { line-height: 1.6; color: #52647a; }
+
+    .card button {
+      width: 100%;
+      padding: 12px;
+      background: #12345a;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .card button:hover { background: #20538a; }
+
+    #empty {
+      display: none;
+      padding: 25px 0;
+      color: #52647a;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      background: #12345a;
+      color: white;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; }
+      nav a { margin: 0 7px; }
+      .hero h1 { font-size: 29px; }
+      input, select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>GLOBAL GSE</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="programmes.html">Programmes</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Explore Exchange Programmes</h1>
+  <p>Discover study opportunities offered by participating universities.</p>
+
+  <div class="search-area">
+    <input id="search" type="search"
+      placeholder="Search programme or university...">
+
+    <select id="country">
+      <option value="">All destinations</option>
+      <option value="United Kingdom">United Kingdom</option>
+      <option value="United States">United States</option>
+      <option value="Canada">Canada</option>
+      <option value="Japan">Japan</option>
+    </select>
+
+    <select id="field">
+      <option value="">All study areas</option>
+      <option value="Information Technology">Information Technology</option>
+      <option value="Business">Business</option>
+      <option value="Engineering">Engineering</option>
+    </select>
+  </div>
+</section>
+
+<main>
+  <div class="results-heading">
+    <h2>Available Opportunities</h2>
+    <span id="count"></span>
+  </div>
+
+  <div class="programmes" id="programmes"></div>
+  <p id="empty">No matching programmes found. Try changing your search.</p>
+</main>
+
+<footer>
+  <p>Global Student Exchange (GSE)</p>
+  <p>Connecting students with international learning opportunities.</p>
+</footer>
+
+<script>
+  // These are demonstration records, not verified real opportunities.
+  const opportunities = [
+    {
+      title: "Information Technology Exchange",
+      university: "Example University A",
+      country: "United Kingdom",
+      field: "Information Technology",
+      duration: "One semester",
+      eligibility: "ICT-related students"
+    },
+    {
+      title: "Business Studies Exchange",
+      university: "Example University B",
+      country: "Canada",
+      field: "Business",
+      duration: "One semester",
+      eligibility: "Business-related students"
+    },
+    {
+      title: "Software Development Exchange",
+      university: "Example University C",
+      country: "Japan",
+      field: "Information Technology",
+      duration: "Two semesters",
+      eligibility: "Computing students"
+    },
+    {
+      title: "Engineering Exchange",
+      university: "Example University D",
+      country: "United States",
+      field: "Engineering",
+      duration: "One semester",
+      eligibility: "Engineering students"
+    },
+    {
+      title: "Digital Systems Exchange",
+      university: "Example University E",
+      country: "United Kingdom",
+      field: "Information Technology",
+      duration: "Three months",
+      eligibility: "Eligible computing students"
+    }
+  ];
+
+  const container = document.getElementById("programmes");
+  const search = document.getElementById("search");
+  const country = document.getElementById("country");
+  const field = document.getElementById("field");
+
+  function renderProgrammes() {
+    const term = search.value.toLowerCase().trim();
+
+    const matches = opportunities.filter(programme => {
+      const text = (
+        programme.title + " " + programme.university
+      ).toLowerCase();
+
+      return text.includes(term) &&
+        (!country.value || programme.country === country.value) &&
+        (!field.value || programme.field === field.value);
+    });
+
+    container.innerHTML = matches.map((programme, index) => `
+      <article class="card">
+        <span class="tag">${programme.country}</span>
+        <h3>${programme.title}</h3>
+        <p><strong>University:</strong> ${programme.university}</p>
+        <p><strong>Study area:</strong> ${programme.field}</p>
+        <p><strong>Duration:</strong> ${programme.duration}</p>
+        <p><strong>Eligibility:</strong> ${programme.eligibility}</p>
+        <button onclick="showDetails(${opportunities.indexOf(programme)})">
+          View Details
+        </button>
+      </article>
+    `).join("");
+
+    document.getElementById("count").textContent =
+      matches.length + " opportunities";
+
+    document.getElementById("empty").style.display =
+      matches.length ? "none" : "block";
+  }
+
+  function showDetails(index) {
+    const programme = opportunities[index];
+
+    alert(
+      "DEMONSTRATION LISTING\n\n" +
+      programme.title + "\n" +
+      "University: " + programme.university + "\n" +
+      "Destination: " + programme.country + "\n" +
+      "Duration: " + programme.duration + "\n" +
+      "Eligibility: " + programme.eligibility +
+      "\n\nApplication functionality will be added in a later step."
+    );
+  }
+
+  search.addEventListener("input", renderProgrammes);
+  country.addEventListener("change", renderProgrammes);
+  field.addEventListener("change", renderProgrammes);
+
+  renderProgrammes();
+</script>
+
+</body>
+</html>
