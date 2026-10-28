@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover student exchange opportunities across participating universities with Global Student Exchange.">
+  <title>Global Student Exchange | Explore Your World</title>
+
+  <style>
+    :root {
+      --navy: #142c4e;
+      --blue: #2864a7;
+      --light-blue: #edf5ff;
+      --orange: #f3a44b;
+      --white: #ffffff;
+      --text: #26364b;
+      --muted: #718096;
+      --border: #e4eaf1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--orange);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      color: white;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #edf5ff, #f9fbff);
+      padding: 76px 0;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--blue);
+      background: #dceaff;
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      color: var(--navy);
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.12;
+      margin-bottom: 22px;
+      letter-spacing: -1.5px;
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 510px;
+      margin-bottom: 27px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      min-height: 340px;
+      border-radius: 24px;
+      background:
+        linear-gradient(0deg, rgba(20,44,78,.15), transparent),
+        url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85")
+        center / cover;
+      box-shadow: 0 22px 50px #142c4e20;
+      position: relative;
+    }
+
+    .floating-card {
+      position: absolute;
+      bottom: 20px;
+      left: -20px;
+      background: white;
+      padding: 17px 20px;
+      border-radius: 13px;
+      box-shadow: 0 8px 30px #142c4e20;
+      font-size: 13px;
+    }
+
+    .floating-card strong {
+      display: block;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 36px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(27px, 4vw, 36px);
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .destination {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      background: white;
+    }
+
+    .destination:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px #142c4e12;
+    }
+
+    .destination img {
+      width: 100%;
+      height: 155px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .destination-info {
+      padding: 17px;
+    }
+
+    .destination-info h3 {
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .destination-info p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .program-section {
+      background: #f7f9fc;
+    }
+
+    .program-tools {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .program-tools input {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      outline-color: var(--blue);
+    }
+
+    .programs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .program {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .program .tag {
+      display: inline-block;
+      background: #e8f3ff;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .program h3 {
+      color: var(--navy);
+      font-size: 18px;
+      margin-bottom: 9px;
+    }
+
+    .program p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
+
+    .program .details {
+      margin-top: 18px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .program .btn {
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: var(--muted);
+      grid-column: 1 / -1;
+      padding: 30px;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .step-number {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 17px;
+      border-radius: 16px;
+      background: var(--light-blue);
+      color: var(--blue);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .how-grid h3 {
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .how-grid p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      padding: 55px 25px;
+      border-radius: 20px;
+      text-align: center;
+      background: var(--navy);
+      color: white;
+    }
+
+    .cta h2 {
+      font-size: clamp(26px, 4vw, 36px);
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #d9e4f2;
+      margin-bottom: 23px;
+    }
+
+    .cta .btn {
+      background: var(--orange);
+      color: var(--navy);
+    }
+
+    footer {
+      margin-top: 75px;
+      padding: 30px 0;
+      background: #f7f9fc;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 850px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        min-height: 300px;
+      }
+
+      .destinations {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .programs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        padding: 15px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        font-size: 12px;
+      }
+
+      .nav-links .btn {
+        padding: 8px 12px;
+      }
+
+      .hero {
+        padding: 48px 0;
+      }
+
+      .hero-image {
+        min-height: 240px;
+      }
+
+      .floating-card {
+        left: 10px;
+        bottom: 10px;
+      }
+
+      section {
+        padding: 52px 0;
+      }
+
+      .destinations,
+      .programs,
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .program-tools {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">GLOBAL<span>GSE.</span></a>
+
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#programs">Programmes</a>
+        <a href="#how-it-works">How It Works</a>
+        <a class="btn" href="#programs">Explore Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">YOUR JOURNEY STARTS HERE</span>
+          <h1>Your education.<br>Your future.<br><span>Your world.</span></h1>
+          <p>
+            Discover student exchange opportunities across participating
+            universities. Explore new destinations, learn about different
+            cultures, and take the next step in your academic journey.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#programs">Explore Programmes →</a>
+            <a class="btn btn-outline" href="#how-it-works">How It Works</a>
+          </div>
+        </div>
+
+        <div class="hero-image" role="img"
+          aria-label="University students studying together">
+          <div class="floating-card">
+            <strong>One platform, more opportunities</strong>
+            Discover programmes beyond your home university.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="destinations">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Explore the world</h2>
+          <p>
+            Discover destinations and imagine where your next learning
+            experience could take you.
+          </p>
+        </div>
+
+        <div class="destinations">
+          <article class="destination">
+            <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80"
+              alt="London city skyline" loading="lazy">
+            <div class="destination-info">
+              <h3>United Kingdom</h3>
+              <p>Discover universities and culture.</p>
+            </div>
+          </article>
+
+          <article class="destination">
+            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80"
+              alt="San Francisco city skyline" loading="lazy">
+            <div class="destination-info">
+              <h3>United States</h3>
+              <p>Explore diverse learning environments.</p>
+            </div>
+          </article>
+
+          <article class="destination">
+            <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=600&q=80"
+              alt="Toronto skyline" loading="lazy">
+            <div class="destination-info">
+              <h3>Canada</h3>
+              <p>Discover new academic perspectives.</p>
+            </div>
+          </article>
+
+          <article class="destination">
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80"
+              alt="Traditional street in Japan" loading="lazy">
+            <div class="destination-info">
+              <h3>Japan</h3>
+              <p>Experience a different culture.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section" id="programs">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Discover exchange programmes</h2>
+          <p>
+            Search the sample programme listings below.
+            Actual opportunities will depend on participating universities.
+          </p>
+        </div>
+
+        <div class="program-tools">
+          <input id="programSearch" type="search"
+            placeholder="Search programmes, universities or countries..."
+            aria-label="Search programmes">
+        </div>
+
+        <div class="programs" id="programList">
+          <article class="program">
+            <span class="tag">SAMPLE LISTING</span>
+            <h3>International Business Exchange</h3>
+            <p>Host university: Global Partner University A</p>
+            <p>Destination: United Kingdom</p>
+            <div class="details">Duration: One semester</div>
+            <a class="btn" href="#how-it-works">View Application Steps</a>
+          </article>
+
+          <article class="program">
+            <span class="tag">SAMPLE LISTING</span>
+            <h3>Technology and Innovation</h3>
+            <p>Host university: Global Partner University B</p>
+            <p>Destination: Canada</p>
+            <div class="details">Duration: One semester</div>
+            <a class="btn" href="#how-it-works">View Application Steps</a>
+          </article>
+
+          <article class="program">
+            <span class="tag">SAMPLE LISTING</span>
+            <h3>Culture and Language Exchange</h3>
+            <p>Host university: Global Partner University C</p>
+            <p>Destination: Japan</p>
+            <div class="details">Duration: Short-term programme</div>
+            <a class="btn" href="#how-it-works">View Application Steps</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Your journey in three steps</h2>
+          <p>
+            The proposed platform will make exchange programme discovery
+            and application tracking more organised.
+          </p>
+        </div>
+
+        <div class="how-grid">
+          <article>
+            <div class="step-number">1</div>
+            <h3>Create Your Profile</h3>
+            <p>Register under your home university and provide your student information.</p>
+          </article>
+
+          <article>
+            <div class="step-number">2</div>
+            <h3>Explore Opportunities</h3>
+            <p>Discover programmes from participating universities and review eligibility requirements.</p>
+          </article>
+
+          <article>
+            <div class="step-number">3</div>
+            <h3>Apply and Track</h3>
+            <p>Submit an application and follow its progress through your student dashboard.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta">
+          <h2>Your next chapter awaits.</h2>
+          <p>Start exploring academic opportunities beyond your home university.</p>
+          <a class="btn" href="#programs">Explore Programmes →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p><strong>GLOBAL GSE.</strong> Student Exchange Platform</p>
+      <p>Academic opportunities without borders.</p>
+      <p>© <span id="year"></span> Global Student Exchange</p>
+    </div>
+  </footer>
+
+  <script>
+    // Display the current year.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Filter the sample programmes as the user types.
+    const searchInput = document.getElementById("programSearch");
+    const programmeCards = document.querySelectorAll(".program");
+    const programmeList = document.getElementById("programList");
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      document.querySelector(".empty-message")?.remove();
+
+      programmeCards.forEach(function (card) {
+        const matches = card.textContent.toLowerCase().includes(query);
+        card.hidden = !matches;
+
+        if (matches) {
+          visibleCount++;
+        }
+      });
+
+      if (visibleCount === 0) {
+        const message = document.createElement("p");
+        message.className = "empty-message";
+        message.textContent =
+          "No sample programmes match your search. Try another keyword.";
+        programmeList.appendChild(message);
+      }
+    });
+  </script>
+</body>
+</html>
